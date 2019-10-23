@@ -1,4 +1,4 @@
-defmodule Legion.ProcessesCheatSheet do
+defmodule Legion.CheatSheets.Processes do
   def spawn_process() do
     spawn(fn ->
       IO.puts(1 + 2)
@@ -8,6 +8,13 @@ defmodule Legion.ProcessesCheatSheet do
   def spawn_bad_process() do
     spawn(fn ->
       raise "my bad"
+    end)
+  end
+
+  def spawn_linked_process() do
+    # spawn_link creates a process linked to the current process, self() in this case.
+    spawn_link(fn ->
+      IO.puts(1 + 2)
     end)
   end
 

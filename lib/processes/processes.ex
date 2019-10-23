@@ -1,44 +1,38 @@
 defmodule Legion.Processes do
   def spawn_process() do
-    spawn(fn ->
-      IO.puts(1 + 2)
-    end)
+    # Spawn a process here
   end
 
   def spawn_bad_process() do
-    spawn(fn ->
-      raise "my bad"
-    end)
+    # Spawn a process that raises an error here
+  end
+
+  def spawn_linked_process() do
+    # spawn a linked process here.
   end
 
   def spawn_linked_bad_process() do
-    # spawn_link creates a process linked to the current process, self() in this case.
-    spawn_link(fn ->
-      raise "oopsie"
-    end)
+    # Spawn a linked process that raises an error here
   end
 
   def is_spawned_process_alive?(pid) do
-    Process.alive?(pid)
+    # check if process is alive
   end
 
   def who_am_i() do
-    self()
+    # return the current process pid
   end
 
   def send_message_to_self() do
-    send(self(), {:hello, "world"})
+    # send a message to current process pid
   end
 
   def send_message_to_process(pid) do
-    send(pid, {:hello, "world"})
+    # send a message to any pid
   end
 
   def receive_message_from_current_process() do
-    receive do
-      {:hello, msg} -> msg
-      {:world, _msg} -> "won't match"
-    end
+    # receive a sent message
   end
 
   def timout_waiting_to_receive_message() do

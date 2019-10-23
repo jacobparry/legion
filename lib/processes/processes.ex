@@ -1,38 +1,51 @@
 defmodule Legion.Processes do
   def spawn_process() do
-    # Spawn a process here
+    spawn(fn ->
+      IO.puts(1 + 2)
+    end)
   end
 
   def spawn_bad_process() do
-    # Spawn a process that raises an error here
+    spawn(fn ->
+      raise "my bad"
+    end)
   end
 
   def spawn_linked_process() do
-    # spawn a linked process here.
+    # spawn_link creates a process linked to the current process, self() in this case.
+    spawn_link(fn ->
+      IO.puts(1 + 2)
+    end)
   end
 
   def spawn_linked_bad_process() do
-    # Spawn a linked process that raises an error here
+    # spawn_link creates a process linked to the current process, self() in this case.
+    spawn_link(fn ->
+      raise "oopsie"
+    end)
   end
 
   def is_spawned_process_alive?(pid) do
-    # check if process is alive
+    Process.alive?(pid)
   end
 
   def who_am_i() do
-    # return the current process pid
+    self()
   end
 
   def send_message_to_self() do
-    # send a message to current process pid
+    send(self(), {:hello, "world"})
   end
 
   def send_message_to_process(pid) do
-    # send a message to any pid
+    send(pid, {:hello, "world"})
   end
 
   def receive_message_from_current_process() do
-    # receive a sent message
+    receive do
+      {:hello, msg} -> msg
+      {:world, _msg} -> "won't match"
+    end
   end
 
   def timout_waiting_to_receive_message() do
@@ -102,7 +115,21 @@ defmodule Legion.Processes do
     end
   end
 
-  def flushing_when_in_iex do
-    # flush() - prints out all messages in the mailbox
+  def get_information_about_process_mailbox(pid) do
+    Process.info(pid, :message_queue_len)
+  end
+
+  def sending_lots_of_message_to_self() do
+    Enum.each(1..100, fn int ->
+      send(self(), int)
+    end)
+  end
+
+  def spawn_lots_of_processes_to_send_message() do
+    daddy = self()
+
+    Enum.each(1..100, fn int ->
+      spawn(fn -> send(daddy, int) end)
+    end)
   end
 end

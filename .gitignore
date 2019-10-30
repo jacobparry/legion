@@ -25,3 +25,6 @@ legion-*.tar
 # Ignore VS Code files
 /.vscode
 /.elixir_ls
+
+# Ignore DS Store, OS X windowing side effect.
+.DS_Store

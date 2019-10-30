@@ -132,4 +132,12 @@ defmodule Legion.Processes do
       spawn(fn -> send(daddy, int) end)
     end)
   end
+
+  def give_process_a_name(pid, name) do
+    Process.register(pid, name)
+  end
+
+  def find_named_processes() do
+    Process.registered()
+  end
 end

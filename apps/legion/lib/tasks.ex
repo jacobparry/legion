@@ -45,12 +45,4 @@ defmodule Legion.Tasks do
         loop(new_map)
     end
   end
-
-  def give_process_a_name(pid, name) do
-    Process.register(pid, name)
-  end
-
-  def find_named_processes() do
-    Process.registered()
-  end
 end

@@ -26,3 +26,5 @@ legion-*.tar
 /.vscode
 /.elixir_ls
 
+# Ignore DS Store, OS X windowing side effect.
+.DS_Store

@@ -42,7 +42,7 @@ defmodule Legion.Agents do
     end
 
     def delete(agent, key) do
-      Agent.update(agent, fn map ->
+      Agent.get_and_update(agent, fn map ->
         Map.pop(map, key)
       end)
     end

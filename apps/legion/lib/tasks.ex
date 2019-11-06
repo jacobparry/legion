@@ -34,7 +34,7 @@ defmodule Legion.Tasks do
     Task.start_link(fn -> loop(%{}) end)
   end
 
-  defp loop(map) do
+  def loop(map) do
     receive do
       {:get, key, caller} ->
         send(caller, Map.get(map, key))

@@ -46,5 +46,18 @@ defmodule Legion.Agents do
         Map.pop(map, key)
       end)
     end
+
+    def delete_wait(agent, key) do
+      # puts client to sleep
+      IO.puts("puts client to sleep")
+      Process.sleep(2000)
+
+      Agent.get_and_update(agent, fn map ->
+        # puts server to sleep
+        IO.puts("puts server to sleep")
+        Process.sleep(2000)
+        Map.pop(map, key)
+      end)
+    end
   end
 end

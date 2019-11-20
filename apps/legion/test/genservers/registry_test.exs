@@ -21,15 +21,17 @@ defmodule Legion.Servers.RegistryTest do
   end
 
   test "we still hit the process limit", %{registry: registry} do
-    for int <- 1..500_000 do
+    for int <- 1..2_000_000 do
       Legion.Servers.Registry.create(registry, "shopping_#{int}")
     end
   end
 
-  test "removes list on exit", %{registry: registry} do
-    Legion.Servers.Registry.create(registry, "shopping")
-    assert {:ok, list} = Legion.Servers.Registry.lookup(registry, "shopping")
+  test "removes list on exit", %{registry: _registry} do
+    registry = start_supervised!(Legion.Servers.RegistryMonitored)
+
+    Legion.Servers.RegistryMonitored.create(registry, "shopping")
+    assert {:ok, list} = Legion.Servers.RegistryMonitored.lookup(registry, "shopping")
     Agent.stop(list)
-    assert Legion.Servers.Registry.lookup(registry, "shopping") == :error
+    assert Legion.Servers.RegistryMonitored.lookup(registry, "shopping") == :error
   end
 end

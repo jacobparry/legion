@@ -40,7 +40,7 @@ defmodule Legion.Servers.RegistryMonitored do
 
   def handle_cast({:create, name}, {names, monitors}) do
     if Map.has_key?(names, name) do
-      {:noreply, names}
+      {:noreply, {names, monitors}}
     else
       {:ok, shopping_list} = Legion.Agents.ShoppingList.start_link([])
       reference_monitor = Process.monitor(shopping_list)

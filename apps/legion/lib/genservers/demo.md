@@ -50,3 +50,19 @@
   2. Watch the message backlog
 
     - Self-Contained: `Enum.each(1..10, fn _ -> Servers.Contained.marco_async(server) end)`
+
+7. Registry
+
+  1. Atom Limit
+
+    - Legion.Servers.max_out_our_atoms()
+
+  2. Process Limit
+
+    - Legion.Servers.max_out_our_processes()
+
+  3. Monitoring
+
+    - {:ok, list} = Legion.Agents.ShoppingList.start_link([])
+    - Process.monitor(list)
+    - Legion.Servers.Registry.create(registry, "shopping")

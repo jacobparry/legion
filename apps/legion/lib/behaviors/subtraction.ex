@@ -1,5 +1,5 @@
 defmodule Legion.Behaviors.Subtraction do
-  use Legion.Behaviors.CoolMath
+  @behaviour Legion.Behaviors.CoolMath
 
   def add(int, int2) do
     int + int2
